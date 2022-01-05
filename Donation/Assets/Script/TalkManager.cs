@@ -20,33 +20,6 @@ public class TalkManager : MonoBehaviour
         GenerateData();
     }
 
-    void GenerateData()
-    {
-        talkData.Add(0, new string[] 
-        {
-            "0번 이벤트의 1번 - 보통:0",
-            "0번 이벤트의 2번 - 기쁨:1"});
-
-        talkData.Add(1, new string[] 
-        {
-            "1번 이벤트의 1번 - 슬픔:2",
-            "1번 이벤트의 2번 - 화남:3"});
-
-        talkData.Add(2, new string[] 
-        {
-            "2번 이벤트의 1번 - 보통:0",
-            "2번 이벤트의 2번 - 보통:0"});
-
-
-        emoteData.Add(0,emoteArr[0]);
-        emoteData.Add(1,emoteArr[1]);
-        emoteData.Add(2,emoteArr[2]);
-        emoteData.Add(3,emoteArr[3]);
-        
-        //emoteData.Add(0, });
-    }
-
-
     public string GetTalk(int eventNum, int talkIndex)
     {
         if(talkIndex == talkData[eventNum].Length)
@@ -63,6 +36,36 @@ public class TalkManager : MonoBehaviour
     public Sprite GetEmote(int id)
     {
         return emoteData[id];
+    }
+
+
+//////////////////////////////////////////////////////////////////////////////////////////
+
+    void GenerateData()
+    {
+        //  스트리머말 : 스트리머 이미지 : 슈퍼챗 활성여부 : 슈퍼챗 말
+        talkData.Add(0, new string[] 
+        {
+            "안녕하세요 여러분,1,0,",
+            "방송 시작하겠습니다,2,0,"});
+
+        talkData.Add(1, new string[] 
+        {
+            "잠깐만요 이게뭐지?,0,1,.....",
+            "........,0,1,hello"});
+
+        talkData.Add(2, new string[] 
+        {
+            "......,0,1,im the god",
+            "??....,3,1,im the god"});
+
+
+        emoteData.Add(0,emoteArr[0]);
+        emoteData.Add(1,emoteArr[1]);
+        emoteData.Add(2,emoteArr[2]);
+        emoteData.Add(3,emoteArr[3]);
+        
+        //emoteData.Add(0, });
     }
 
 }
