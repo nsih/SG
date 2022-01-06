@@ -46,12 +46,12 @@ public class TalkManager : MonoBehaviour
         //  스트리머말 : 스트리머 이미지 : 슈퍼챗 활성여부 : 슈퍼챗 말
         talkData.Add(0, new string[] 
         {
-            "안녕하세요 여러분,1,0,",
-            "방송 시작하겠습니다,2,0,"});
+            "안녕하세요 여러분,0,0,",
+            "방송 시작하겠습니다,1,0,"});
 
         talkData.Add(1, new string[] 
         {
-            "잠깐만요 이게뭐지?,0,1,.....",
+            "잠깐만요 이게뭐지?,2,1,.....",
             "........,0,1,hello"});
 
         talkData.Add(2, new string[] 

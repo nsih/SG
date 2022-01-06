@@ -1014,10 +1014,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   emoteArr:
-  - {fileID: 5398016713006803522, guid: 4ec3f63b951f6b944b656df43fba4ca7, type: 3}
-  - {fileID: -925320102683440149, guid: 4ec3f63b951f6b944b656df43fba4ca7, type: 3}
-  - {fileID: 2726406063536471110, guid: 4ec3f63b951f6b944b656df43fba4ca7, type: 3}
-  - {fileID: -9109842233981215099, guid: 4ec3f63b951f6b944b656df43fba4ca7, type: 3}
+  - {fileID: 21300000, guid: 0a554e03b94f6d7488675b915adc6993, type: 3}
+  - {fileID: 21300000, guid: a1667d19801132c4b8fd9ee4f0486a6e, type: 3}
+  - {fileID: 21300000, guid: 9dcf6a1c22b352e4abba9060f9fba885, type: 3}
+  - {fileID: 21300000, guid: f158fb895da94e846b418835cf1fc069, type: 3}
 --- !u!4 &725902431
 Transform:
   m_ObjectHideFlags: 0
@@ -1732,8 +1732,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.15, y: -40}
-  m_SizeDelta: {x: 1000, y: 1000}
+  m_AnchoredPosition: {x: 17.559, y: -0.0011444}
+  m_SizeDelta: {x: 1884.9, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1326821807
 MonoBehaviour:
@@ -1755,7 +1755,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 31fd243e792c39442914aa952b637876, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0a554e03b94f6d7488675b915adc6993, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
