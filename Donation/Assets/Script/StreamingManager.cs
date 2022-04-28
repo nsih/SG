@@ -17,49 +17,74 @@ public class StreamingManager : MonoBehaviour
 
     public TalkManager talkManager;
     public int eventNum = 0;
+    public int eventEndNum = 0;
 
 
+    public bool isTalkBar;
     public bool isSuperChat;
     public int talkIndex;
 
 
+    public void Start()
+    {
+        SetEventSE(0,3);
+    }
 
     public void Update() 
     {
-        if(Input.GetKeyDown( KeyCode.E ))
+        if(Input.GetKeyDown( KeyCode.E))
         {
-            Talk(eventNum);
-            talkBar.SetActive(true);
+            Talk(3);
+
+            talkBar.SetActive(isTalkBar);
             superChatBar.SetActive(isSuperChat);
         }
     }
 
 
-    void Talk(int en)
+    public void Talk(int endNum)  //start ~ end 넘버 이벤트까지 출력
     {
-        string talkData = talkManager.GetTalk(eventNum, talkIndex);
+        string talkData;
 
-        if(talkData == null)    //이벤트 끝 체크
+        if(eventNum < endNum)
         {
-            talkText.text = null;
-            SuperChatText.text = null;
+            isTalkBar = true;
 
-            isSuperChat = false;
+            talkData = talkManager.GetTalk(eventNum, talkIndex);
 
-            eventNum ++;        //다음 이벤트++
-            talkIndex = 0;      //인덱스 초기화
+            if(talkData == null)    //이벤트 끝 체크
+            {   
+                isTalkBar = false;
+                isSuperChat = false;
+                talkText.text = null;
+                SuperChatText.text = null;
+                streamerImg.sprite = talkManager.GetEmote(0);
 
+                eventNum ++;        //다음 이벤트++
+                talkIndex = 0;      //인덱스 초기화
+                return;
+            }
+            else
+            {
+                talkText.text = talkData.Split(',')[0];
+                streamerImg.sprite = talkManager.GetEmote( int.Parse(talkData.Split(',')[1]));
+                Donation( int.Parse (talkData.Split(',')[2]) );
+                SuperChatText.text = talkData.Split(',')[3];
+
+                talkIndex ++;   //다음인덱스
+                return;
+            }
+        }
+
+        else if(eventNum == endNum)
+        {
+            if(endNum == 3) //일단 초기화
+            {
+                eventNum = 0;
+            }
             return;
         }
 
-        Donation( int.Parse(talkData.Split(',')[2] ) ) ;             //텍스트가 스트리머인지 슈퍼챗인지 구분
-
-
-        talkText.text = talkData.Split(',')[0];
-        SuperChatText.text = talkData.Split(',')[3];
-        streamerImg.sprite = talkManager.GetEmote( int.Parse(talkData.Split(',')[1]));
-
-        talkIndex ++;   //다음인덱스
     }
 
 
@@ -73,9 +98,9 @@ public class StreamingManager : MonoBehaviour
             
     }
 
-
-    void Chat()
+    public void SetEventSE(int start, int end)
     {
-
+        eventNum = start;
+        eventEndNum = end;
     }
 }

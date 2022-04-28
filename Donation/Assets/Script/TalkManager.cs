@@ -10,6 +10,8 @@ public class TalkManager : MonoBehaviour
     Dictionary<int,Sprite> emoteData;
 
     public Sprite[] emoteArr;
+    
+
 
     void Awake() 
     {
@@ -41,31 +43,39 @@ public class TalkManager : MonoBehaviour
 
 //////////////////////////////////////////////////////////////////////////////////////////
 
+
     void GenerateData()
     {
-        //  스트리머말 : 스트리머 이미지 : 슈퍼챗 활성여부 : 슈퍼챗 말
-        talkData.Add(0, new string[] 
-        {
-            "안녕하세요 여러분,0,0,",
-            "방송 시작하겠습니다,1,0,"});
-
-        talkData.Add(1, new string[] 
-        {
-            "잠깐만요 이게뭐지?,2,1,.....",
-            "........,0,1,hello"});
-
-        talkData.Add(2, new string[] 
-        {
-            "......,0,1,im the god",
-            "??....,3,1,im the god"});
-
+        //
+        int normal = 0;
+        int smile = 1;
+        int questioan = 2;
+        int surprise = 3;
 
         emoteData.Add(0,emoteArr[0]);
         emoteData.Add(1,emoteArr[1]);
         emoteData.Add(2,emoteArr[2]);
         emoteData.Add(3,emoteArr[3]);
-        
-        //emoteData.Add(0, });
+
+        int scOn = 1;
+        int scOff = 0;
+
+
+        //  스트리머말 : 스트리머 이미지 : 슈퍼챗 활성여부 : 슈퍼챗 말
+        talkData.Add(0, new string[] 
+        {
+            "안녕하세요 여러분"+","+ normal +"," + scOff +","+"",
+            "방송 시작하겠습니다."+","+ smile +"," + scOff +","+""});
+
+        talkData.Add(1, new string[] 
+        {
+            "근데 이게 뭐지"+","+ questioan +"," + scOn +","+"mic check",
+            "...."+","+ normal +"," + scOn +","+"one two"});
+
+        talkData.Add(2, new string[] 
+        {
+            "??...."+","+ questioan +"," + scOn +","+"im god",
+            "?!?!"+","+ surprise +"," + scOn +","+"im god"});
     }
 
 }

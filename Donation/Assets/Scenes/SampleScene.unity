@@ -219,7 +219,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &72999264
 RectTransform:
   m_ObjectHideFlags: 0
@@ -328,6 +328,8 @@ MonoBehaviour:
   SuperChatText: {fileID: 1867078429}
   talkManager: {fileID: 725902430}
   eventNum: 0
+  eventEndNum: 0
+  isTalkBar: 0
   isSuperChat: 0
   talkIndex: 0
 --- !u!1 &208199778
@@ -621,7 +623,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &471396897
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1049,7 +1051,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &773799959
 RectTransform:
   m_ObjectHideFlags: 0
