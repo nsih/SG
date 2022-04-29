@@ -34,17 +34,23 @@ public class StreamingManager : MonoBehaviour
     {
         if(Input.GetKeyDown( KeyCode.E))
         {
-            Talk(3);
-
-            talkBar.SetActive(isTalkBar);
-            superChatBar.SetActive(isSuperChat);
+            if(isTyping == false)
+            {
+                Talk(3);
+                talkBar.SetActive(isTalkBar);
+                superChatBar.SetActive(isSuperChat);
+            }
         }
+
+        SuperChatEffect();
     }
 
 
     public void Talk(int endNum)  //start ~ end 넘버 이벤트까지 출력
     {
         string talkData;
+
+        string streamerDialogText;
 
         if(eventNum < endNum)
         {
@@ -66,7 +72,9 @@ public class StreamingManager : MonoBehaviour
             }
             else
             {
-                talkText.text = talkData.Split(',')[0];
+                streamerDialogText = talkData.Split(',')[0];
+                StartCoroutine( typing(streamerDialogText));
+
                 streamerImg.sprite = talkManager.GetEmote( int.Parse(talkData.Split(',')[1]));
                 Donation( int.Parse (talkData.Split(',')[2]) );
                 SuperChatText.text = talkData.Split(',')[3];
@@ -88,6 +96,19 @@ public class StreamingManager : MonoBehaviour
     }
 
 
+    public bool isTyping = false;
+    IEnumerator typing(string dialogText)
+    {
+        for(int i = 0 ; i <=  dialogText.Length ; i++)
+        {
+            isTyping = true;
+            talkText.text = dialogText.Substring(0,i);
+            yield return new WaitForSeconds(0.05f);
+        }
+
+        isTyping = false;
+    }
+
     void Donation( int superChat )
     {
         if ( superChat == 0)
@@ -95,12 +116,62 @@ public class StreamingManager : MonoBehaviour
         
         else if (superChat == 1)
             isSuperChat = true;
-            
     }
 
     public void SetEventSE(int start, int end)
     {
         eventNum = start;
         eventEndNum = end;
+    }
+
+
+    
+    byte r = 51;
+    byte g = 51;
+     byte b = 166;
+
+     int flag;  
+    public void SuperChatEffect()
+    {
+        if(flag == 0)
+        {
+            r++;
+            g++;
+            b--;
+
+            Debug.Log("flag:"+flag);
+            if(r >= 164) flag = 1;
+        }
+
+        if(flag ==1)
+        {
+            r--; 
+            //g
+            b++;
+            Debug.Log("flag:"+flag);
+
+            if(r <= 51) flag = 2;
+        }
+        if(flag ==2)
+        {
+            r++;
+            g--;
+            //b
+            Debug.Log("flag:"+flag);
+
+            if(r >= 164) flag = 3;
+        }
+        if(flag == 3)
+        {
+            r--;
+            //g
+            b++;
+            Debug.Log("flag:"+flag);
+
+            if(r <= 51) flag = 0;
+        }
+
+        
+        superChatBar.GetComponent<Image>().color = new Color32(r,g,b,200);
     }
 }
