@@ -27,7 +27,7 @@ public class StreamingManager : MonoBehaviour
 
     public void Start()
     {
-        SetEventSE(0,3);
+        SetEventNum(0,3);   //0~3번 이벤트 출력.
     }
 
     public void Update() 
@@ -42,7 +42,15 @@ public class StreamingManager : MonoBehaviour
             }
         }
 
-        SuperChatEffect();
+                
+    }
+
+    public void FixedUpdate() 
+    {
+        if(superChatBar.activeSelf == true)
+        {
+            SuperChatEffect();
+        }
     }
 
 
@@ -118,19 +126,19 @@ public class StreamingManager : MonoBehaviour
             isSuperChat = true;
     }
 
-    public void SetEventSE(int start, int end)
+    public void SetEventNum(int start, int end)
     {
         eventNum = start;
         eventEndNum = end;
     }
 
 
-    
+    //
     byte r = 51;
     byte g = 51;
-     byte b = 166;
+    byte b = 166;
+     int flag;
 
-     int flag;  
     public void SuperChatEffect()
     {
         if(flag == 0)
@@ -139,7 +147,6 @@ public class StreamingManager : MonoBehaviour
             g++;
             b--;
 
-            Debug.Log("flag:"+flag);
             if(r >= 164) flag = 1;
         }
 
@@ -148,7 +155,6 @@ public class StreamingManager : MonoBehaviour
             r--; 
             //g
             b++;
-            Debug.Log("flag:"+flag);
 
             if(r <= 51) flag = 2;
         }
@@ -157,7 +163,6 @@ public class StreamingManager : MonoBehaviour
             r++;
             g--;
             //b
-            Debug.Log("flag:"+flag);
 
             if(r >= 164) flag = 3;
         }
@@ -166,12 +171,10 @@ public class StreamingManager : MonoBehaviour
             r--;
             //g
             b++;
-            Debug.Log("flag:"+flag);
 
             if(r <= 51) flag = 0;
         }
 
-        
         superChatBar.GetComponent<Image>().color = new Color32(r,g,b,200);
     }
 }
