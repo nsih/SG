@@ -36,12 +36,13 @@
     <ImplicitlyExpandDesignTimeFacades>false</ImplicitlyExpandDesignTimeFacades>
   </PropertyGroup>
   <ItemGroup>
+     <Compile Include="Assets\Script\Battle\PlayerCon.cs" />
      <Compile Include="Assets\Script\ButtonEvent.cs" />
      <Compile Include="Assets\Script\CutScene\MainScene.cs" />
      <Compile Include="Assets\Script\TalkManager.cs" />
      <Compile Include="Assets\Script\StreamingManager.cs" />
      <Compile Include="Assets\Script\SoundManager.cs" />
-     <Compile Include="Assets\Script\Battle\PlayerCon.cs" />
+     <Compile Include="Assets\Script\Battle\PlayerInfo.cs" />
     <Reference Include="UnityEngine">
         <HintPath>C:\Users\sih65\Desktop\Unity\2020.3.25f1\Editor\Data\Managed\UnityEngine\UnityEngine.dll</HintPath>
     </Reference>
