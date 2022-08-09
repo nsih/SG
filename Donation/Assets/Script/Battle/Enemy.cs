@@ -126,6 +126,10 @@ public class Enemy : MonoBehaviour
             {
                 dist = "Down";
             }
+            else
+            {
+                dist = "Idle";
+            }
         }
 
         if(dist == "Left")
@@ -149,6 +153,10 @@ public class Enemy : MonoBehaviour
         {
             animator.SetBool("isMoving", true);
             moveVelocity = Vector3.down;
+        }
+        else if(dist == "Idle")
+        {
+            animator.SetBool("isMoving", false);
         }
         transform.position += moveVelocity * moveSpeed * Time.deltaTime;
     }
@@ -174,11 +182,6 @@ public class Enemy : MonoBehaviour
         else
         {
             movementFlag++;
-        }
-
-        if (movementFlag == 0 || movementFlag == 3)
-        {
-            if(!isTracing)   animator.SetBool("isMoving", false);
         }
         yield return new WaitForSeconds(1.5f);
         StartCoroutine("ChangeMovement");

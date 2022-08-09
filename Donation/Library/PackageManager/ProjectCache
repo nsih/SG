@@ -111,6 +111,7 @@ m_PackageAssets:
         - 5.1.1
         - 5.2.0
         - 5.2.1
+        - 5.2.3
         - 6.0.0-pre.1
         - 6.0.0-pre.2
         - 6.0.1
@@ -126,11 +127,14 @@ m_PackageAssets:
         - 7.0.3
         - 7.0.4
         - 7.0.5
+        - 7.0.6
         - 8.0.0-pre.3
         - 8.0.0-pre.4
         - 8.0.0
         - 8.0.1
+        - 8.0.2
         - 9.0.0-pre.1
+        - 9.0.0-pre.3
         compatible:
         - 5.0.6
         - 5.0.7
@@ -341,10 +345,13 @@ m_PackageAssets:
         - 6.0.1
         - 6.0.2
         - 6.0.3
+        - 6.0.4
         - 7.0.0-pre.3
         - 7.0.0-pre.4
         - 7.0.0
+        - 7.0.1
         - 8.0.0-pre.1
+        - 8.0.0-pre.3
         compatible:
         - 4.1.0
         - 4.1.1
@@ -543,6 +550,7 @@ m_PackageAssets:
         - 7.0.2
         - 7.0.3
         - 7.0.4
+        - 7.0.5
         - 8.0.0-pre.4
         - 8.0.0-pre.5
         - 8.0.0
@@ -719,6 +727,7 @@ m_PackageAssets:
         - 1.14.15
         - 1.14.16
         - 1.14.17
+        - 1.14.18
         - 1.15.1
         - 1.15.4
         - 1.15.7
@@ -728,6 +737,10 @@ m_PackageAssets:
         - 1.15.15
         - 1.15.16
         - 1.15.17
+        - 1.15.18
+        - 1.17.0
+        - 1.17.1
+        - 1.17.2
         - 2.0.0-preview.6
         - 2.0.0-preview.8
         - 2.0.0-preview.15
@@ -739,8 +752,6 @@ m_PackageAssets:
         - 2.1.0-preview.5
         - 2.1.0-preview.6
         compatible:
-        - 1.9.0
-        - 1.10.2
         - 1.11.2
         - 1.12.5
         - 1.13.5
@@ -753,6 +764,7 @@ m_PackageAssets:
         - 1.14.15
         - 1.14.16
         - 1.14.17
+        - 1.14.18
         - 1.15.1
         - 1.15.4
         - 1.15.7
@@ -762,6 +774,10 @@ m_PackageAssets:
         - 1.15.15
         - 1.15.16
         - 1.15.17
+        - 1.15.18
+        - 1.17.0
+        - 1.17.1
+        - 1.17.2
         - 2.0.0-preview.6
         - 2.0.0-preview.8
         - 2.0.0-preview.15
@@ -772,7 +788,7 @@ m_PackageAssets:
         - 2.1.0-preview.3
         - 2.1.0-preview.5
         - 2.1.0-preview.6
-        verified: 1.9.0
+        verified: 1.11.2
       dependencies:
       - name: com.unity.nuget.newtonsoft-json
         version: 2.0.0
@@ -871,6 +887,7 @@ m_PackageAssets:
         - 3.0.12
         - 3.0.13
         - 3.0.14
+        - 3.0.15
         compatible:
         - 1.0.2
         - 1.0.6
@@ -902,6 +919,7 @@ m_PackageAssets:
         - 3.0.12
         - 3.0.13
         - 3.0.14
+        - 3.0.15
         verified: 2.0.7
       dependencies:
       - name: com.unity.test-framework
@@ -976,6 +994,7 @@ m_PackageAssets:
         - 2.0.12
         - 2.0.14
         - 2.0.15
+        - 2.0.16
         compatible:
         - 1.0.2
         - 1.0.3
@@ -995,7 +1014,8 @@ m_PackageAssets:
         - 2.0.12
         - 2.0.14
         - 2.0.15
-        verified: 2.0.15
+        - 2.0.16
+        verified: 2.0.16
       dependencies:
       - name: com.unity.test-framework
         version: 1.1.9
@@ -1155,6 +1175,7 @@ m_PackageAssets:
         - 1.1.29
         - 1.1.30
         - 1.1.31
+        - 1.1.33
         - 2.0.1-exp.1
         - 2.0.1-pre.12
         - 2.0.1-pre.18
@@ -1162,10 +1183,11 @@ m_PackageAssets:
         - 1.1.29
         - 1.1.30
         - 1.1.31
+        - 1.1.33
         - 2.0.1-exp.1
         - 2.0.1-pre.12
         - 2.0.1-pre.18
-        verified: 1.1.31
+        verified: 1.1.33
       dependencies:
       - name: com.unity.ext.nunit
         version: 1.0.6
@@ -3772,4 +3794,4 @@ m_PackageAssets:
   m_LocalPackages:
     m_LocalFileStatus: []
 m_ProjectPath: C:/Users/82103/Documents/GitHub/StreamerGame/Donation/Packages
-m_EditorVersion: 2020.3.18f1 (a7d1c678663c)
+m_EditorVersion: 2020.3.20f1 (41c4e627c95f)
