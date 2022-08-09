@@ -13,11 +13,16 @@ public class Enemy : MonoBehaviour
     public bool attackCheck = true;
     public float hp = 3;
     public float invincibleTime;
-    public GameObject player;
+    
+    
+    GameObject player;
     float distance;
+
 
     void Awake()
     {
+        player = GameObject.Find("Player");
+
         invincibleTime = GameObject.Find("attackE").GetComponent<Attack>().cooltime;
     }
 
