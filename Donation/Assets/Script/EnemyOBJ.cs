@@ -20,20 +20,19 @@ public class EnemyOBJ : MonoBehaviour
     {
         OffTimer();
     }
-
+    /*
     void FixedUpdate() 
     {
         Movement();
     }
+    */
 
     void OffTimer() 
     {
         time += Time.deltaTime;
 
         if(time > 5.0f)
-        {
-            this.gameObject.SetActive(false);
-        }
+            Dead();
     }
 
     void Movement()
