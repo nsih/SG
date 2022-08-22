@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
-    float cooltime;
+    public float cooltime;
     float curtime;
+    GameObject enemy;
     public GameObject PlayerManager;
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
-        cooltime = PlayerManager.GetComponent<PlayerCon>().cooltime;
+        
     }
     
     void FixedUpdate()
@@ -20,12 +21,10 @@ public class Attack : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        /*
         if (collision.tag == "Enemy")
         {
             enemy = collision.gameObject;
         }
-        */
     }
     public void OnTriggerStay2D(Collider2D collision)
     {
@@ -33,12 +32,12 @@ public class Attack : MonoBehaviour
         {
             if (PlayerManager.GetComponent<PlayerCon>().check == false && curtime <= 0)
             {
+                enemy.GetComponent<Enemy>().hp--;
                 curtime = cooltime;
-                if (!collision.gameObject.GetComponent<Enemy>().attackCheck)
+                if (!enemy.GetComponent<Enemy>().attackCheck)
                 {
-                    collision.gameObject.GetComponent<Enemy>().attackCheck = true;
-                    collision.gameObject.GetComponent<Enemy>().Attack();
-                    collision.gameObject.GetComponent<Enemy>().hp--;
+                    enemy.GetComponent<Enemy>().attackCheck = true;
+                    enemy.GetComponent<Enemy>().Attack();
                 }
             }
         }

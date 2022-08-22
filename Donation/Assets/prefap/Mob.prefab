@@ -170,7 +170,8 @@ MonoBehaviour:
   moveSpeed: 2
   attackCheck: 0
   hp: 3
-  invincibleTime: 2
+  invincibleTime: 0
+  player: {fileID: 0}
 --- !u!114 &778128084033604338
 MonoBehaviour:
   m_ObjectHideFlags: 0
