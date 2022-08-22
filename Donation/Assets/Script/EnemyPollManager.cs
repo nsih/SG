@@ -89,7 +89,7 @@ public class EnemyPollManager : MonoBehaviour
         }
     }
 
-    public void DisposePool()
+    public void DisposePool()   //안씀
     {
         foreach(var item in items)
         {
