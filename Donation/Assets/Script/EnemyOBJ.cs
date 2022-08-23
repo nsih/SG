@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemyOBJ : MonoBehaviour
 {
     GameObject player;
+    GameObject stageManager;
 
     float speed;
     float time;
@@ -12,6 +13,9 @@ public class EnemyOBJ : MonoBehaviour
     void OnEnable()
     {
         player = GameObject.Find("Player");
+        stageManager = GameObject.Find("StageManager");
+
+
         speed = 5;
         time = 0;
     }
@@ -46,5 +50,7 @@ public class EnemyOBJ : MonoBehaviour
     private void Dead() //적죽음
     {
         this.gameObject.SetActive(false);
+
+        stageManager.GetComponent<StageManager>().slainCount++;
     }
 }
