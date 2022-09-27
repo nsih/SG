@@ -1,0 +1,23 @@
+{
+    "scripts01": [
+        {
+            "id": 1,
+            "isPlayer": "true",
+            "playerScript": "대사",
+            "playerEmote": "default",
+            "isDonation": "true",
+            "donationScript": ""
+        }
+    ],
+
+    "scripts02": [
+        {
+            "id": 1,
+            "isPlayer": "true",
+            "playerScript": "대사",
+            "playerEmote": "default",
+            "isDonation": "true",
+            "donationScript": ""
+        }
+    ]
+}
