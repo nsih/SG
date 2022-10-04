@@ -7,6 +7,7 @@ public class PlayerCon : MonoBehaviour
     GameObject playerManager;
     GameObject player;
     GameObject swordRad;
+    GameObject sword;
     GameObject attack;
     public bool check=true;
     public float cooltime;
@@ -15,6 +16,7 @@ public class PlayerCon : MonoBehaviour
     void Awake()
     {
         playerManager = GameObject.Find("PlayerManager");
+        sword = GameObject.Find("attackE");
         player = GameObject.Find("Player");
         swordRad = GameObject.Find("SwordRotate");
         attack = swordRad.transform.GetChild(0).gameObject;
