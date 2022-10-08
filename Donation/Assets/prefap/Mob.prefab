@@ -167,10 +167,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animSpeed: 0.2
   animator: {fileID: 1006148359527567494}
+  isTracing: 0
+  movementFlag: 0
   moveSpeed: 2
   attackCheck: 0
   hp: 3
   invincibleTime: 2
+  tracingDistance: 6
+  player: {fileID: 0}
+  distance: 0
 --- !u!114 &778128084033604338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -178,7 +183,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1006148359527567501}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9cde85b53047064389923892ad0e9dc, type: 3}
   m_Name: 
