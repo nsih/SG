@@ -261,16 +261,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 310178018}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1669055104}
-  m_RootOrder: 1
+  m_Father: {fileID: 1040670526}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -20, y: 0}
+  m_AnchoredPosition: {x: -44, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &310178020
@@ -320,10 +320,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 44.75
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -608,7 +608,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 711166044}
-  - component: {fileID: 711166043}
   - component: {fileID: 711166042}
   m_Layer: 0
   m_Name: PlayerManager
@@ -632,22 +631,11 @@ MonoBehaviour:
   color: 0
   atk: 0
   moveSpeed: 0
+  attackSpeed: 0
   Gauge: 0
---- !u!114 &711166043
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 711166041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0f3c5d1e51532f94d849d435b059f45c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  check: 1
-  cooltime: 1
-  rotateDegree: 0
+  HPBar: {fileID: 1040670528}
+  curHP: 0
+  maxHP: 12345
 --- !u!4 &711166044
 Transform:
   m_ObjectHideFlags: 0
@@ -985,6 +973,7 @@ GameObject:
   - component: {fileID: 918695633}
   - component: {fileID: 918695636}
   - component: {fileID: 918695635}
+  - component: {fileID: 918695637}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1145,6 +1134,24 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
+--- !u!114 &918695637
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 918695632}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0f3c5d1e51532f94d849d435b059f45c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerManager: {fileID: 711166041}
+  swordRad: {fileID: 0}
+  attack: {fileID: 0}
+  check: 1
+  cooltime: 0
+  rotateDegree: 0
 --- !u!4 &945648207 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 929803593637310511, guid: a63bf24b75ed44440973f9d3000b8a1e, type: 3}
@@ -1220,7 +1227,9 @@ RectTransform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 310178019}
+  - {fileID: 1657385339}
   m_Father: {fileID: 1669055104}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1681,16 +1690,16 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1657385338}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 1669055104}
-  m_RootOrder: 2
+  m_Father: {fileID: 1040670526}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 16, y: 0}
+  m_AnchoredPosition: {x: 45, y: 0}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1657385340
@@ -1742,10 +1751,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
+  m_fontSize: 44.75
   m_fontSizeBase: 36
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -1819,11 +1828,9 @@ RectTransform:
   m_GameObject: {fileID: 1669055103}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1040670526}
-  - {fileID: 310178019}
-  - {fileID: 1657385339}
   m_Father: {fileID: 1242523941}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2359,7 +2366,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ac0be4320b82454494ca05d2e94d3b2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerManager: {fileID: 711166041}
 --- !u!1 &2046820623
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,23 +4,17 @@ using UnityEngine;
 
 public class PlayerCon : MonoBehaviour
 {
-    GameObject playerManager;
-    GameObject player;
-    GameObject swordRad;
-    GameObject sword;
-    GameObject attack;
+    public GameObject playerManager;
+    public GameObject swordRad;
+    public GameObject attack;
     public bool check=true;
     public float cooltime;
     float curtime;
     
     void Awake()
     {
-        playerManager = GameObject.Find("PlayerManager");
-        sword = GameObject.Find("attackE");
-        player = GameObject.Find("Player");
-        swordRad = GameObject.Find("SwordRotate");
-        attack = swordRad.transform.GetChild(0).gameObject;
-
+        swordRad = gameObject.transform.GetChild(0).gameObject;
+        attack = swordRad.gameObject.transform.GetChild(0).gameObject;
     }
 
     void FixedUpdate()
@@ -30,19 +24,19 @@ public class PlayerCon : MonoBehaviour
         Attack();
     }
 
-    void PlayerMovement() //
+    void PlayerMovement() 
     {
         if (Input.GetKey(KeyCode.UpArrow)||Input.GetKey(KeyCode.W))
-            player.transform.Translate(Vector2.up * Time.deltaTime * playerManager.GetComponent<PlayerInfo>().moveSpeed);
+            transform.Translate(Vector2.up * Time.deltaTime * playerManager.GetComponent<PlayerInfo>().moveSpeed);
 
         if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
-            player.transform.Translate(Vector2.left * Time.deltaTime * playerManager.GetComponent<PlayerInfo>().moveSpeed);
+            transform.Translate(Vector2.left * Time.deltaTime * playerManager.GetComponent<PlayerInfo>().moveSpeed);
 
         if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
-            player.transform.Translate(Vector2.down * Time.deltaTime * playerManager.GetComponent<PlayerInfo>().moveSpeed);
+            transform.Translate(Vector2.down * Time.deltaTime * playerManager.GetComponent<PlayerInfo>().moveSpeed);
 
         if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
-            player.transform.Translate(Vector2.right * Time.deltaTime * playerManager.GetComponent<PlayerInfo>().moveSpeed);
+            transform.Translate(Vector2.right * Time.deltaTime * playerManager.GetComponent<PlayerInfo>().moveSpeed);
     }
 
  
@@ -103,4 +97,6 @@ public class PlayerCon : MonoBehaviour
         yield return new WaitForSeconds(0.3f);
         check = true;
     }
+
+    
 }

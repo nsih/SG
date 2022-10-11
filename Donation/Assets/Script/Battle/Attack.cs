@@ -6,12 +6,13 @@ public class Attack : MonoBehaviour
 {
     float cooltime;
     float curtime;
-    public GameObject PlayerManager;
+
+    //공격 범위 내 몹 정보를 list로 저장 후 이벤트 처리
     private HashSet<Enemy> list = null;
     // Start is called before the first frame update
     void Awake()
     {
-        cooltime = PlayerManager.GetComponent<PlayerCon>().cooltime;
+        cooltime = transform.GetComponentInParent<PlayerCon>().cooltime;
         this.list = new HashSet<Enemy>();
     }
     
@@ -39,28 +40,11 @@ public class Attack : MonoBehaviour
         }
     }
 
-    public void AttackEnemy(HashSet<Enemy> enemylist)
-    {
-        if (PlayerManager.GetComponent<PlayerCon>().check == false && curtime <= 0)
-        {
-            curtime = cooltime;
-            foreach(Enemy enemy in enemylist)
-            {
-                if (!enemy.attackCheck)
-                {
-                    //Debug.Log("Attacked name : " + enemy.name);
-                    enemy.attackCheck = true;
-                    enemy.Attack();
-                    enemy.hp--;
-                }
-            }
-        }
-    }
 
     public void OnTriggerStay2D(Collider2D collision)
     {
         /*
-        //Collider2D[] mobs = Physics2D.OverlapCollider(Collider2D collision, ContactFilter2D cF, Collider2D[] result)
+        수정 이전 코드(1타겟 공격만 가능)
         //for(int i = 0;i< collision.Length; i++)
         {
             if (collision.tag == "Enemy")
@@ -86,5 +70,22 @@ public class Attack : MonoBehaviour
         }
     }
 
-   
+    public void AttackEnemy(HashSet<Enemy> enemylist)
+    {
+        if (transform.GetComponentInParent<PlayerCon>().check == false && curtime <= 0)
+        {
+            curtime = cooltime;
+            foreach (Enemy enemy in enemylist)
+            {
+                if (!enemy.attackCheck)
+                {
+                    //Debug.Log("Attacked name : " + enemy.name);
+                    enemy.attackCheck = true;
+                    enemy.Attack();
+                    enemy.hp--;
+                }
+            }
+        }
+    }
+
 }
