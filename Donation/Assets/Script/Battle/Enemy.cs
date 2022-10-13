@@ -10,7 +10,7 @@ public class Enemy : MonoBehaviour
     public bool isTracing = false;
     public float movementFlag = 0;
     public float moveSpeed = 2.0f;
-    public bool attackCheck = true;
+    public bool attackCheck = true; //몹이 플레이어에게 공격받았는지 확인하는 변수
     public float hp = 3;
     public float invincibleTime;
     public float tracingDistance = 6;
@@ -136,24 +136,36 @@ public class Enemy : MonoBehaviour
         }
         transform.position += moveVelocity * moveSpeed * Time.deltaTime;
     }
-    public void AttackedCheck()
+    protected virtual void AttackedCheck()
     {
         if (hp <= 0)
         {
             Destroy(gameObject);
         }
         
-        if (!attackCheck)   //몬스터가 플레이어의 공격에 피격 시 무적시간 동안 스프라이트 색 변경
+        if (attackCheck)   //몬스터가 플레이어의 공격에 피격 시 무적시간 동안 스프라이트 색 변경
         {
-            //기본 상태
-            gameObject.GetComponent<SpriteRenderer>().color = new Color(255f / 255f, 255f / 255f, 255f / 255f);
+            StartCoroutine("Onhit");
         }
-        else
-        {
-            //피격 시
-            gameObject.GetComponent<SpriteRenderer>().color = new Color(255f / 255f, 134f / 255f, 188f / 255f);
-        }
+        
     }
+
+    protected IEnumerator Onhit()
+    {
+        int countTime = 0;
+        while (!attackCheck)
+        {
+            if (countTime % 2 == 0)
+                gameObject.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 90);
+            else
+                gameObject.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 180);
+
+            yield return new WaitForSeconds(0.2f);
+        }
+
+        yield return null;
+    }
+
     protected IEnumerator ChangeMovement() //코루틴으로 movementFlag를 1.5초마다 계속하여 변경
     {
         /*

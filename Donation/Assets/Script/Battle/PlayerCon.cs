@@ -7,10 +7,13 @@ public class PlayerCon : MonoBehaviour
     public GameObject playerManager;
     public GameObject swordRad;
     public GameObject attack;
-    public bool check=true;
+    public bool check = true;
     public float cooltime;
     float curtime;
-    
+    public float invincibleTime = 1.5f; // 피격 시 무적시간
+    bool attackedCheck = false;
+
+
     void Awake()
     {
         swordRad = gameObject.transform.GetChild(0).gameObject;
@@ -98,5 +101,21 @@ public class PlayerCon : MonoBehaviour
         check = true;
     }
 
-    
+    IEnumerator attacked()
+    {
+        yield return new WaitForSeconds(invincibleTime);
+        attackedCheck = false;
+    }
+
+    void OnCollisionStay2D(Collision2D collision)
+    {
+        Debug.Log(collision.gameObject.name);
+        if(collision.gameObject.tag == "Enemy" && !attackedCheck)
+        {
+            playerManager.GetComponent<PlayerInfo>().curHP -= 1000;
+            attackedCheck = true;
+            StartCoroutine(attacked());
+        }
+    }
+
 }

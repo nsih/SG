@@ -50,7 +50,7 @@ public class Attack : MonoBehaviour
             if (collision.tag == "Enemy")
             {
                 //Debug.Log(collision.Length);
-                if (PlayerManager.GetComponent<PlayerCon>().check == false && curtime <= 0)
+                if (gameObject.GetComponentInParent<PlayerCon>().check == false && curtime <= 0)
                 {
                     curtime = cooltime;
                     if (!collision.gameObject.GetComponent<Enemy>().attackCheck)
@@ -63,6 +63,7 @@ public class Attack : MonoBehaviour
             }
         }
         */
+        
         Enemy enemy = collision.transform.GetComponent<Enemy>();
         if (list != null)
         {

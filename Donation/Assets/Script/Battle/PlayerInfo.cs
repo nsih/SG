@@ -9,9 +9,10 @@ public class PlayerInfo : MonoBehaviour
     public static PlayerInfo playerInfo = null;
 
     public int color;    
-    public int atk;
-    public int moveSpeed;
-    public float attackSpeed;
+    public int atk;         //공격력
+    public float defense;   //방어력
+    public int moveSpeed;   //이동속도
+    public float attackSpeed;   //공격속도
 
     public float Gauge;
 
@@ -37,6 +38,8 @@ public class PlayerInfo : MonoBehaviour
         }
 
         player = GameObject.FindGameObjectWithTag("Player");
+        atk = 1;
+        defense = 300;
         moveSpeed = 5;
         attackSpeed = 1;
         player.GetComponent<PlayerCon>().cooltime = 3.0f / attackSpeed;
@@ -57,5 +60,10 @@ public class PlayerInfo : MonoBehaviour
         //HPtext 소수점 반올림하여 표기
         curHPText.text = Mathf.Round(curHP).ToString();
         maxHPText.text = "/ " + Mathf.Round(maxHP).ToString();
+    }
+
+    void attacked()
+    {
+
     }
 }
