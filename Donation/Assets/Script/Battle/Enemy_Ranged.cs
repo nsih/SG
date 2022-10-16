@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Enemy_Ranged : Enemy
@@ -19,6 +20,7 @@ public class Enemy_Ranged : Enemy
         hp = 3;
         animSpeed = 0.4f;
         tracingDistance = 100f;
+        GameObject bullet = Resources.Load<GameObject>("Prefabs/Bullet");
     }
 
     // Update is called once per frame
@@ -63,7 +65,8 @@ public class Enemy_Ranged : Enemy
     {
         if (isAttacking == true && attackCurtime <= 0)
         {
-            Instantiate(bullet, transform.position, transform.rotation);
+            GameObject instance = Instantiate(bullet as GameObject, transform.position, transform.rotation);
+            instance.transform.SetParent(gameObject.transform);
             attackCurtime = attackCooltime;
         }
     }
@@ -93,7 +96,7 @@ public class Enemy_Ranged : Enemy
         }
         else
         {
-            dist = "idle";
+            dist = "Idle";
         }
 
         

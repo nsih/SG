@@ -16,11 +16,13 @@ public class Enemy : MonoBehaviour
     public float tracingDistance = 6;
     public GameObject player;
     public float distance;
+    SpriteRenderer spriteRenderer;
 
-    
+
     protected virtual void Awake()
     {
         player = GameObject.Find("Player");
+        spriteRenderer = GetComponent<SpriteRenderer>();
         //invincibleTime = GameObject.Find("attackE").GetComponent<Attack>().cooltime;
         StartCoroutine("ChangeMovement");
     }
@@ -145,26 +147,12 @@ public class Enemy : MonoBehaviour
         
         if (attackCheck)   //몬스터가 플레이어의 공격에 피격 시 무적시간 동안 스프라이트 색 변경
         {
-            StartCoroutine("Onhit");
+            StartCoroutine("Blinking");
         }
         
     }
 
-    protected IEnumerator Onhit()
-    {
-        int countTime = 0;
-        while (!attackCheck)
-        {
-            if (countTime % 2 == 0)
-                gameObject.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 90);
-            else
-                gameObject.GetComponent<SpriteRenderer>().color = new Color32(255, 255, 255, 180);
-
-            yield return new WaitForSeconds(0.2f);
-        }
-
-        yield return null;
-    }
+   
 
     protected IEnumerator ChangeMovement() //코루틴으로 movementFlag를 1.5초마다 계속하여 변경
     {
@@ -185,6 +173,8 @@ public class Enemy : MonoBehaviour
     }
     public void Attack()    //플레이어 스크립트에서 Enemy 공격 시 호출할 함수
     {
+        attackCheck = true;
+        hp--;
         StartCoroutine(enemyAttack());
     }
     protected IEnumerator enemyAttack()
@@ -193,5 +183,25 @@ public class Enemy : MonoBehaviour
         attackCheck = false;
     }
 
-    
+    protected IEnumerator Blinking()
+    {
+        float countTime = 0;
+        while (countTime <= invincibleTime)
+        {
+            if ((countTime * 2) % 2 == 0)
+                spriteRenderer.color = new Color(1, 1, 1, 0.4f);
+            else
+                spriteRenderer.color = new Color(1, 1, 1, 0.8f);
+
+            yield return new WaitForSeconds(0.5f);
+
+            countTime += 0.5f;
+            Debug.Log(countTime);
+        }
+
+        spriteRenderer.color = new Color32(255, 255, 255, 255);
+
+        yield return null;
+    }
+
 }

@@ -89,6 +89,8 @@ public class PlayerCon : MonoBehaviour
             {
                 check = false;
                 StartCoroutine(aimColor());
+                //attack 컴포넌트의 몹 공격 코루틴 실행
+                attack.GetComponent<Attack>().StartCoroutine(attack.GetComponent<Attack>().SwingSword());
                 curtime = cooltime;
             }
         }
@@ -109,7 +111,7 @@ public class PlayerCon : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D collision)
     {
-        Debug.Log(collision.gameObject.name);
+        //Debug.Log(collision.gameObject.name);
         if(collision.gameObject.tag == "Enemy" && !attackedCheck)
         {
             playerManager.GetComponent<PlayerInfo>().curHP -= 1000;
