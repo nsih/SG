@@ -32,7 +32,7 @@ public class MapManager : MonoBehaviour
 
     void MapGenerator(Vector3 vec)
     {
-        Debug.Log(vec);
+        //Debug.Log(vec);
         for (int i = 0; i < width; i++) 
         {
             for (int j = 0; j < height; j++) 
