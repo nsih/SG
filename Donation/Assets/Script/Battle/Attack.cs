@@ -4,21 +4,9 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
-    float cooltime;
-    float curtime;
 
     //공격 범위 내 몹 정보를 list로 저장 후 이벤트 처리
     List<GameObject> list = new List<GameObject>();
-    // Start is called before the first frame update
-    void Awake()
-    {
-        cooltime = transform.GetComponentInParent<PlayerCon>().cooltime;
-    }
-    
-    void FixedUpdate()
-    {
-        curtime -= Time.deltaTime;
-    }
 
     void OnTriggerEnter2D(Collider2D collision)
     {
@@ -41,9 +29,8 @@ public class Attack : MonoBehaviour
 
     void AttackEnemy(List<GameObject> enemyList)
     {
-        if (transform.GetComponentInParent<PlayerCon>().check == false && curtime <= 0)
+        if (transform.GetComponentInParent<PlayerCon>().check == false )
         {
-            curtime = cooltime;
             foreach (GameObject enemy in enemyList)
             {
                 Enemy temp = enemy.GetComponent<Enemy>();
@@ -63,6 +50,8 @@ public class Attack : MonoBehaviour
         if (list != null)
         {
             AttackEnemy(list);
+            gameObject.SetActive(false);
+            gameObject.SetActive(true);
         }
         yield return null;
     }

@@ -166,7 +166,7 @@ public class Enemy : MonoBehaviour
         if (movementFlag == 5) movementFlag = 0;
         else
         {
-            movementFlag++;
+            movementFlag=0;
         }
         yield return new WaitForSeconds(1.5f);
         StartCoroutine("ChangeMovement");

@@ -7,10 +7,11 @@ public class PlayerCon : MonoBehaviour
     public GameObject playerManager;
     public GameObject swordRad;
     public GameObject attack;
+    SpriteRenderer attackSprite;
     public bool check = true;
     public float cooltime;
-    float curtime;
     public float invincibleTime = 1.5f; // 피격 시 무적시간
+    bool decisionTime = false;
     bool attackedCheck = false;
 
 
@@ -18,6 +19,7 @@ public class PlayerCon : MonoBehaviour
     {
         swordRad = gameObject.transform.GetChild(0).gameObject;
         attack = swordRad.gameObject.transform.GetChild(0).gameObject;
+        attackSprite = attack.GetComponent<SpriteRenderer>();
     }
 
     void FixedUpdate()
@@ -46,14 +48,6 @@ public class PlayerCon : MonoBehaviour
     public float rotateDegree;
     public void Aim()
     {
-        if(check == true)
-        {
-            attack.GetComponent<SpriteRenderer>().color = new Color(36f / 255f, 36f / 255f, 36f / 255f);
-        }
-        else
-        {
-            attack.GetComponent<SpriteRenderer>().color = new Color(219f / 255f, 219f / 255f, 219f / 255f);
-        }
         if((Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) && (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)))
             rotateDegree = 45;
         //N.E.
@@ -83,23 +77,31 @@ public class PlayerCon : MonoBehaviour
     
     public void Attack()
     {
-        if (curtime <= 0)
+        if (check && decisionTime)
         {
-            if (Input.GetKey(KeyCode.E) && check)
+            if (Input.GetKey(KeyCode.E))
             {
                 check = false;
                 StartCoroutine(aimColor());
                 //attack 컴포넌트의 몹 공격 코루틴 실행
                 attack.GetComponent<Attack>().StartCoroutine(attack.GetComponent<Attack>().SwingSword());
-                curtime = cooltime;
+                StartCoroutine(attackCooldown());
             }
         }
-        curtime -= Time.deltaTime;
     }
 
     IEnumerator aimColor()
     {
+        attackSprite.color = new Color(36f / 255f, 36f / 255f, 36f / 255f);
+        decisionTime = true;
         yield return new WaitForSeconds(0.3f);
+        attackSprite.color = new Color(219f / 255f, 219f / 255f, 219f / 255f);
+        decisionTime = false;
+    }
+
+    IEnumerator attackCooldown()
+    {
+        yield return cooltime;
         check = true;
     }
 
