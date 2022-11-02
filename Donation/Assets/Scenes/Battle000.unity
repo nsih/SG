@@ -9626,6 +9626,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1006148359527567495, guid: 5739149eb1ed99642a4632951aab706f, type: 3}
+      propertyPath: invincibleTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1006148359527567495, guid: 5739149eb1ed99642a4632951aab706f, type: 3}
       propertyPath: tracingDistance
       value: 0
       objectReference: {fileID: 0}
@@ -19691,6 +19695,7 @@ MonoBehaviour:
   check: 1
   cooltime: 1
   invincibleTime: 1.5
+  aimChoice: 0
   rotateDegree: 0
 --- !u!4 &945648207
 Transform:
@@ -38592,6 +38597,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1006148359527567495, guid: 5739149eb1ed99642a4632951aab706f, type: 3}
+      propertyPath: invincibleTime
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1006148359527567495, guid: 5739149eb1ed99642a4632951aab706f, type: 3}
       propertyPath: tracingDistance
       value: 0
       objectReference: {fileID: 0}
@@ -38652,6 +38661,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1006148359527567495, guid: 5739149eb1ed99642a4632951aab706f, type: 3}
+      propertyPath: invincibleTime
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1006148359527567495, guid: 5739149eb1ed99642a4632951aab706f, type: 3}
       propertyPath: tracingDistance
       value: 0
@@ -38788,6 +38801,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1006148359527567495, guid: 5739149eb1ed99642a4632951aab706f, type: 3}
+      propertyPath: invincibleTime
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1006148359527567495, guid: 5739149eb1ed99642a4632951aab706f, type: 3}
       propertyPath: tracingDistance
       value: 0
@@ -44027,6 +44044,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1006148359527567495, guid: 5739149eb1ed99642a4632951aab706f, type: 3}
+      propertyPath: invincibleTime
+      value: 0.5
+      objectReference: {fileID: 0}
     - target: {fileID: 1006148359527567495, guid: 5739149eb1ed99642a4632951aab706f, type: 3}
       propertyPath: tracingDistance
       value: 0

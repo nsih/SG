@@ -186,17 +186,17 @@ public class Enemy : MonoBehaviour
     protected IEnumerator Blinking()
     {
         float countTime = 0;
-        while (countTime <= invincibleTime)
+        while (countTime < invincibleTime)
         {
-            if ((countTime * 2) % 2 == 0)
+            if ((countTime / 0.3f) % 2 == 1)
                 spriteRenderer.color = new Color(1, 1, 1, 0.4f);
             else
                 spriteRenderer.color = new Color(1, 1, 1, 0.8f);
 
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.3f);
 
-            countTime += 0.5f;
-            Debug.Log(countTime);
+            countTime += 0.3f;
+            //Debug.Log(countTime);
         }
 
         spriteRenderer.color = new Color32(255, 255, 255, 255);
