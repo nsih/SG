@@ -13,16 +13,18 @@ public class Enemy : MonoBehaviour
     public bool attackCheck = true; //몹이 플레이어에게 공격받았는지 확인하는 변수
     public float hp = 3;
     public float invincibleTime;
+    public bool isInvincible = false;
     public float tracingDistance = 6;
     public GameObject player;
     public float distance;
     SpriteRenderer spriteRenderer;
 
 
-    protected virtual void Awake()
+    protected virtual void OnEnable()
     {
         player = GameObject.Find("Player");
         spriteRenderer = GetComponent<SpriteRenderer>();
+        hp = 3;
         //invincibleTime = GameObject.Find("attackE").GetComponent<Attack>().cooltime;
         StartCoroutine("ChangeMovement");
     }
@@ -140,12 +142,11 @@ public class Enemy : MonoBehaviour
     }
     protected virtual void AttackedCheck()
     {
-        if (hp <= 0)
+        if (hp <= 0 && attackCheck)
         {
-            Destroy(gameObject);
-        }
-        
-        if (attackCheck)   //몬스터가 플레이어의 공격에 피격 시 무적시간 동안 스프라이트 색 변경
+            attackCheck = false;
+            this.GetComponent<EnemyOBJ>().Dead();
+        }else if (attackCheck)   //몬스터가 플레이어의 공격에 피격 시 무적시간 동안 스프라이트 색 변경
         {
             StartCoroutine("Blinking");
         }
@@ -166,36 +167,44 @@ public class Enemy : MonoBehaviour
         if (movementFlag == 5) movementFlag = 0;
         else
         {
-            movementFlag=0;
+            movementFlag++;
         }
         yield return new WaitForSeconds(1.5f);
         StartCoroutine("ChangeMovement");
     }
     public void Attack()    //플레이어 스크립트에서 Enemy 공격 시 호출할 함수
     {
-        attackCheck = true;
-        hp--;
-        StartCoroutine(enemyAttack());
+        if (!isInvincible)
+        {
+            attackCheck = true;
+            hp--;
+        }
+        if(hp>0)    StartCoroutine(enemyAttack());
     }
     protected IEnumerator enemyAttack()
     {
+        isInvincible = true;
         yield return new WaitForSeconds(invincibleTime);
+        isInvincible = false;
         attackCheck = false;
     }
 
     protected IEnumerator Blinking()
     {
         float countTime = 0;
+        float blinkTic = 0.5f;
+        if (invincibleTime < blinkTic) blinkTic = invincibleTime / 2.0f;
+
         while (countTime < invincibleTime)
         {
-            if ((countTime / 0.3f) % 2 == 1)
+            if ((countTime / blinkTic) % 2 == 0)
                 spriteRenderer.color = new Color(1, 1, 1, 0.4f);
             else
                 spriteRenderer.color = new Color(1, 1, 1, 0.8f);
 
-            yield return new WaitForSeconds(0.3f);
+            yield return new WaitForSeconds(blinkTic);
 
-            countTime += 0.3f;
+            countTime += blinkTic;
             //Debug.Log(countTime);
         }
 

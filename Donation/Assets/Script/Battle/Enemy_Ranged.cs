@@ -13,9 +13,9 @@ public class Enemy_Ranged : Enemy
     Vector3 dir;
     public GameObject bullet;
 
-    protected override void Awake()
+    protected override void OnEnable()
     {
-        base.Awake();
+        base.OnEnable();
         //추가로 동작할 내용
         hp = 3;
         animSpeed = 0.4f;

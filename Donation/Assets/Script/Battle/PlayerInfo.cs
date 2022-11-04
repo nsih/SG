@@ -41,7 +41,7 @@ public class PlayerInfo : MonoBehaviour
         atk = 1;
         defense = 300;
         moveSpeed = 5;
-        attackSpeed = 1;
+        attackSpeed = 3;
         player.GetComponent<PlayerCon>().cooltime = 3.0f / attackSpeed;
 
         curHP = maxHP;

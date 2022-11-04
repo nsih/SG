@@ -8,9 +8,9 @@ public class Enemy_Berserker : Enemy
     Vector3 dir;
     
     // Start is called before the first frame update
-   protected override void Awake()
+   protected override void OnEnable()
     {
-        base.Awake();
+        base.OnEnable();
         //추가로 동작할 내용
         hp = 2;
         VecCheck();

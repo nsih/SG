@@ -8,6 +8,7 @@ public class PlayerCon : MonoBehaviour
     public GameObject swordRad;
     public GameObject attack;
     SpriteRenderer attackSprite;
+    SpriteRenderer playerSprite;
     public bool check;
     public float cooltime;
     public float invincibleTime = 1.5f; // 피격 시 무적시간
@@ -21,6 +22,7 @@ public class PlayerCon : MonoBehaviour
         swordRad = gameObject.transform.GetChild(0).gameObject;
         attack = swordRad.gameObject.transform.GetChild(0).gameObject;
         attackSprite = attack.GetComponent<SpriteRenderer>();
+        playerSprite = this.gameObject.GetComponent<SpriteRenderer>();
         check = true;
     }
 
@@ -118,12 +120,13 @@ public class PlayerCon : MonoBehaviour
 
     IEnumerator attackCooldown()
     {
-        yield return cooltime;
+        yield return new WaitForSeconds(cooltime);
         check = true;
     }
 
     IEnumerator attacked()
     {
+        StartCoroutine(Blinking());
         yield return new WaitForSeconds(invincibleTime);
         attackedCheck = false;
     }
@@ -137,6 +140,29 @@ public class PlayerCon : MonoBehaviour
             attackedCheck = true;
             StartCoroutine(attacked());
         }
+    }
+    protected IEnumerator Blinking()
+    {
+        float countTime = 0;
+        float blinkTic = 0.5f;
+        if (invincibleTime < blinkTic) blinkTic = invincibleTime / 2.0f;
+
+        while (countTime < invincibleTime)
+        {
+            if ((countTime / blinkTic) % 2 == 0) 
+                playerSprite.color = new Color(1, 1, 1, 0.4f);
+            else
+                playerSprite.color = new Color(1, 1, 1, 0.8f);
+
+            yield return new WaitForSeconds(blinkTic);
+
+            countTime += blinkTic;
+            //Debug.Log(countTime);
+        }
+
+        playerSprite.color = new Color32(255, 255, 255, 255);
+
+        yield return null;
     }
 
 }
