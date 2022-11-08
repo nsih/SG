@@ -21,6 +21,7 @@ public class Enemy : MonoBehaviour
     protected virtual void Awake()
     {
         player = GameObject.Find("Player");
+        //invincibleTime = GameObject.Find("attackE").GetComponent<Attack>().cooltime;
         StartCoroutine("ChangeMovement");
     }
 
@@ -28,7 +29,17 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
-        animator.SetFloat("Speed", animSpeed);
+        animator.SetFloat("Speed", animSpeed);  //½ºÅ©¸³Æ®¿¡ ÀÖ´Â animSpeedÀÇ ¼Óµµ·Î ¾Ö´Ï¸ÞÀÌ¼ÇÀÌ ÁøÇàµÇµµ·Ï ¼³Á¤
+        /*
+        if (Input.GetAxisRaw("Horizontal") == 0)
+        {
+            animator.SetBool("isMoving", false);
+        }
+        else if (Input.GetAxisRaw("Horizontal") != 0)
+        {
+            animator.SetBool("isMoving", true);
+        }*/
+        
     }
     protected virtual void FixedUpdate()
     {
@@ -36,10 +47,8 @@ public class Enemy : MonoBehaviour
         Move();
         AttackedCheck();
     }
-
-
-
     public void DistanceCheck() 
+    //ÇÃ·¹ÀÌ¾î¿Í °Å¸®°¡ tracingDistance ÀÌÇÏÀÏ ¶§ ÃßÀûÇÏ´Â ÇÔ¼ö
     {
         distance = Vector3.Distance(player.transform.position, transform.position);
         if (distance > tracingDistance)
@@ -58,9 +67,9 @@ public class Enemy : MonoBehaviour
         Vector3 moveVelocity = Vector3.zero;
         string dist = "";
 
-        if (isTracing)  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ß°ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾î¸¦ ï¿½ï¿½ï¿½ó°¡µï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        if (isTracing)  //ÃßÀûÁßÀÏ ¶§´Â ±âÁ¸ ¿òÁ÷ÀÓÀ» ¸ØÃß°í ÇÃ·¹ÀÌ¾î¸¦ µû¶ó°¡µµ·Ï ¼³Á¤
         {
-            //ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Å¸ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ì¼±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½Ìµï¿½
+            //ÇÃ·¹ÀÌ¾î¿ÍÀÇ ¼öÆò°Å¸®¿Í ¼öÁ÷°Å¸® Áß ´õ ¸Õ °ÍÀ» ¿ì¼±¹æÇâÀ¸·Î ¼³Á¤ÇÏ¿© ÀÌµ¿
             Vector3 playerPos = player.transform.position;
             float hori = Mathf.Abs(transform.position.x - playerPos.x);
             float vert = Mathf.Abs(transform.position.y - playerPos.y);
@@ -75,7 +84,7 @@ public class Enemy : MonoBehaviour
                 else if (transform.position.x < playerPos.x) dist = "Right";
             }
         }
-        else    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ movementFlagï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ex)12345 => ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-ï¿½ï¿½-ï¿½Æ·ï¿½
+        else    //ÃßÀûÁßÀÌ ¾Æ´Ò ¶§´Â ¼³Á¤ÇÑ movementFlag¿¡ µû¶ó ¿òÁ÷ÀÓ ex)12345 => ¿ÞÂÊ-¿À¸¥ÂÊ-°¡¸¸È÷-À§-¾Æ·¡
         {
             if (movementFlag == 1)
             {
@@ -127,10 +136,6 @@ public class Enemy : MonoBehaviour
         }
         transform.position += moveVelocity * moveSpeed * Time.deltaTime;
     }
-    
-    
-    
-    
     public void AttackedCheck()
     {
         if (hp <= 0)
@@ -138,26 +143,25 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
         }
         
-        if (!attackCheck)   //ï¿½ï¿½ï¿½Í°ï¿½ ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ý¿ï¿½ ï¿½Ç°ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        if (!attackCheck)   //¸ó½ºÅÍ°¡ ÇÃ·¹ÀÌ¾îÀÇ °ø°Ý¿¡ ÇÇ°Ý ½Ã ¹«Àû½Ã°£ µ¿¾È ½ºÇÁ¶óÀÌÆ® »ö º¯°æ
         {
-            //ï¿½âº» ï¿½ï¿½ï¿½ï¿½
+            //±âº» »óÅÂ
             gameObject.GetComponent<SpriteRenderer>().color = new Color(255f / 255f, 255f / 255f, 255f / 255f);
         }
         else
         {
-            //ï¿½Ç°ï¿½ ï¿½ï¿½
+            //ÇÇ°Ý ½Ã
             gameObject.GetComponent<SpriteRenderer>().color = new Color(255f / 255f, 134f / 255f, 188f / 255f);
         }
     }
-    
-    protected IEnumerator ChangeMovement() //ï¿½Ú·ï¿½Æ¾ï¿½ï¿½ï¿½ï¿½ movementFlagï¿½ï¿½ 1.5ï¿½Ê¸ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï¿ï¿½ ï¿½ï¿½ï¿½ï¿½
+    protected IEnumerator ChangeMovement() //ÄÚ·çÆ¾À¸·Î movementFlag¸¦ 1.5ÃÊ¸¶´Ù °è¼ÓÇÏ¿© º¯°æ
     {
         /*
-         * movementFlag == 1 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
-         * movementFlag == 2 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
-         * movementFlag == 4 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
-         * movementFlag == 5 ï¿½Æ·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ìµï¿½
-         * ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+         * movementFlag == 1 ¿ÞÂÊÀ¸·Î ÀÌµ¿
+         * movementFlag == 2 ¿À¸¥ÂÊÀ¸·Î ÀÌµ¿
+         * movementFlag == 4 À§ÂÊÀ¸·Î ÀÌµ¿
+         * movementFlag == 5 ¾Æ·¡ÂÊÀ¸·Î ÀÌµ¿
+         * ±× ¿Ü ³ª¸ÓÁö °¡¸¸È÷
          */
         if (movementFlag == 5) movementFlag = 0;
         else
@@ -167,13 +171,10 @@ public class Enemy : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         StartCoroutine("ChangeMovement");
     }
-
-
-    public void Attack()
+    public void Attack()    //ÇÃ·¹ÀÌ¾î ½ºÅ©¸³Æ®¿¡¼­ Enemy °ø°Ý ½Ã È£ÃâÇÒ ÇÔ¼ö
     {
         StartCoroutine(enemyAttack());
     }
-
     protected IEnumerator enemyAttack()
     {
         yield return new WaitForSeconds(invincibleTime);

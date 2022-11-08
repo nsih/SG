@@ -8,45 +8,25 @@ public class PlayerCon : MonoBehaviour
     GameObject player;
     GameObject swordRad;
     GameObject sword;
-    GameObject attackE;
-
-    Collider2D attackECollider;
-
-
-
-
-    public float timerTime;
-    public bool isAttackCool;
-    public static float attackSpeed;
+    GameObject attack;
+    public bool check=true;
+    public float cooltime;
+    float curtime;
     
     void Awake()
     {
         playerManager = GameObject.Find("PlayerManager");
-        //sword = GameObject.Find("attackE");
+        sword = GameObject.Find("attackE");
         player = GameObject.Find("Player");
         swordRad = GameObject.Find("SwordRotate");
-        attackE = swordRad.transform.GetChild(0).gameObject;//attackE
+        attack = swordRad.transform.GetChild(0).gameObject;
 
-        attackECollider = attackE.GetComponent<Collider2D>();
-
-        attackSpeed = 1.0f;
-        isAttackCool = false;
-    }
-
-    void Start()  
-    {
-        attackE.SetActive(false);
-    }
-
-    void Update() 
-    {
-        AsTimer();
     }
 
     void FixedUpdate()
     {
         PlayerMovement();
-        AttackAim();
+        Aim();
         Attack();
     }
 
@@ -65,62 +45,62 @@ public class PlayerCon : MonoBehaviour
             player.transform.Translate(Vector2.right * Time.deltaTime * playerManager.GetComponent<PlayerInfo>().moveSpeed);
     }
 
-
-
-
-
-
-
-
-
-    ///. attack
-
-
-    Vector2 _mousePos;
-    Vector2 _playerPos;
-
-    public void AttackAim()
+ 
+    public float rotateDegree;
+    public void Aim()
     {
-        _mousePos = Input.mousePosition;
-        _playerPos = player.gameObject.transform.position;
-
-        Vector3 target = Camera.main.ScreenToWorldPoint(_mousePos);
-
-        float dy = target.y - _playerPos.y;
-        float dx = target.x - _playerPos.x;
-
-        float rotateDegree = Mathf.Atan2(dy, dx) * Mathf.Rad2Deg;
-
-        swordRad.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, rotateDegree);
-    }
-
-    public void Attack()
-    {
-        if (Input.GetMouseButton(0) && !isAttackCool )
+        if(check == true)
         {
-            isAttackCool = true;
-            StartCoroutine(ActiveAttack());
+            attack.GetComponent<SpriteRenderer>().color = new Color(36f / 255f, 36f / 255f, 36f / 255f);
         }
-    }
-
-    IEnumerator ActiveAttack()
-    {
-        attackE.SetActive(true);
-        yield return new WaitForSeconds(0.1f);
-        attackE.SetActive(false);
-    }
-    
-    void AsTimer()
-    {
-        if(timerTime < (1/attackSpeed) )
-        {
-            timerTime += Time.deltaTime;
-        }
-            
         else
         {
-            isAttackCool = false;            
-            timerTime = 0;
+            attack.GetComponent<SpriteRenderer>().color = new Color(219f / 255f, 219f / 255f, 219f / 255f);
         }
+        if((Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) && (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)))
+            rotateDegree = 45;
+        //N.E.
+        else if((Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) && (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D)))
+            rotateDegree = 135;
+        //S.W.
+        else if((Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S)) && (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)))
+            rotateDegree = 315;
+        //N.W.
+        else if((Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W)) && (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A)))
+            rotateDegree = 225;
+        //S.
+        else if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
+            rotateDegree = 0;
+        //E.
+        else if (Input.GetKey(KeyCode.RightArrow) || Input.GetKey(KeyCode.D))
+            rotateDegree = 90;
+        //N.
+        else if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
+            rotateDegree = 180;
+        //W.
+        else if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+            rotateDegree = 270;
+
+        swordRad.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, rotateDegree - 90);
+    }
+    
+    public void Attack()
+    {
+        if (curtime <= 0)
+        {
+            if (Input.GetKey(KeyCode.E) && check)
+            {
+                check = false;
+                StartCoroutine(aimColor());
+                curtime = cooltime;
+            }
+        }
+        curtime -= Time.deltaTime;
+    }
+
+    IEnumerator aimColor()
+    {
+        yield return new WaitForSeconds(0.3f);
+        check = true;
     }
 }

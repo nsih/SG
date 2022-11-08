@@ -279,9 +279,6 @@
     <Reference Include="UnityEditor.UnityConnectModule">
         <HintPath>C:\Users\sih65\Desktop\Unity\2020.3.25f1\Editor\Data\Managed\UnityEngine\UnityEditor.UnityConnectModule.dll</HintPath>
     </Reference>
-    <Reference Include="LitJson">
-        <HintPath>C:\Users\sih65\AppData\Local\GitHubDesktop\app-2.5.6\StreamerGame\Donation\Assets\Plugin\LitJson.dll</HintPath>
-    </Reference>
     <Reference Include="Newtonsoft.Json">
         <HintPath>C:\Users\sih65\AppData\Local\GitHubDesktop\app-2.5.6\StreamerGame\Donation\Library\PackageCache\com.unity.nuget.newtonsoft-json@2.0.0\Runtime\Newtonsoft.Json.dll</HintPath>
     </Reference>
