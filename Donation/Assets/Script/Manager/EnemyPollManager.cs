@@ -38,8 +38,8 @@ public class EnemyPollManager : MonoBehaviour
 
     void Update()
     {
-        Debug.Log(isActivatable);
-        Debug.Log(delayTime);
+        //Debug.Log(isActivatable);
+        //Debug.Log(delayTime);
 
 
         ActivateTimer();
@@ -57,10 +57,9 @@ public class EnemyPollManager : MonoBehaviour
         {
             GameObject temp = Instantiate(enemy_000 as GameObject);
 
-            temp.gameObject.SetActive(false);
-
             items.Add(temp);
             items[i].transform.SetParent(enemyManager.transform);
+            temp.gameObject.SetActive(false);
         }
     }
 

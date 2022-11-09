@@ -14,12 +14,13 @@ public class MapManager : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        MapGenerator(Camera.transform.position);
+        //MapGenerator(Camera.transform.position);
     }
 
     // Update is called once per frameheight
     void Update()
     {
+        /*
         if (Input.GetMouseButtonDown(0))
         {
             Vector3 point = Camera.ScreenToWorldPoint(Input.mousePosition);
@@ -28,6 +29,7 @@ public class MapManager : MonoBehaviour
             Tilemap test2 = Tilemap.Instantiate(test);
             test2.transform.position = new Vector3(point.x, point.y, transform.position.z);
         }
+        */
     }
 
     void MapGenerator(Vector3 vec)

@@ -1,10 +1,27 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerInfo : MonoBehaviour
 {
     public static PlayerInfo playerInfo = null;
+
+    public int color;    
+    public int atk;         //공격력
+    public float defense;   //방어력
+    public int moveSpeed;   //이동속도
+    public float attackSpeed;   //공격속도
+
+    public float Gauge;
+
+    public Image HPBar;
+    public float curHP;
+    public float maxHP;
+    TextMeshProUGUI curHPText;
+    TextMeshProUGUI maxHPText;
+    GameObject player;
 
     void Awake() 
     {
@@ -20,12 +37,33 @@ public class PlayerInfo : MonoBehaviour
                 Destroy(this.gameObject); //awake된 자신을 삭제
         }
 
+        player = GameObject.FindGameObjectWithTag("Player");
+        atk = 1;
+        defense = 300;
         moveSpeed = 5;
+        attackSpeed = 3;
+        player.GetComponent<PlayerCon>().cooltime = 3.0f / attackSpeed;
+
+        curHP = maxHP;
+        curHPText = HPBar.GetComponentsInChildren<TextMeshProUGUI>()[0];
+        maxHPText = HPBar.GetComponentsInChildren<TextMeshProUGUI>()[1];
     }
 
-    public int color;    
-    public int atk;
-    public int moveSpeed;
+    void Update()
+    {
+        fillHPBar();
+    }
 
-    public float Gauge;
+    void fillHPBar()
+    {
+        HPBar.fillAmount = curHP / maxHP;
+        //HPtext 소수점 반올림하여 표기
+        curHPText.text = Mathf.Round(curHP).ToString();
+        maxHPText.text = "/ " + Mathf.Round(maxHP).ToString();
+    }
+
+    void attacked()
+    {
+
+    }
 }

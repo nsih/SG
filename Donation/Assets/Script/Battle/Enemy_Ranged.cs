@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Enemy_Ranged : Enemy
@@ -12,13 +13,14 @@ public class Enemy_Ranged : Enemy
     Vector3 dir;
     public GameObject bullet;
 
-    protected override void Awake()
+    protected override void OnEnable()
     {
-        base.Awake();
+        base.OnEnable();
         //추가로 동작할 내용
         hp = 3;
         animSpeed = 0.4f;
         tracingDistance = 100f;
+        GameObject bullet = Resources.Load<GameObject>("Prefabs/Bullet");
     }
 
     // Update is called once per frame
@@ -63,29 +65,13 @@ public class Enemy_Ranged : Enemy
     {
         if (isAttacking == true && attackCurtime <= 0)
         {
-            Instantiate(bullet, transform.position, transform.rotation);
+            GameObject instance = Instantiate(bullet as GameObject, transform.position, transform.rotation);
+            instance.transform.SetParent(gameObject.transform);
             attackCurtime = attackCooltime;
         }
     }
 
-    new public void AttackedCheck()
-    {
-        if (hp <= 0)
-        {
-            Destroy(gameObject);
-        }
-
-        if (!attackCheck)   //몬스터가 플레이어의 공격에 피격 시 무적시간 동안 스프라이트 색 변경
-        {
-            //기본 상태
-            gameObject.GetComponent<SpriteRenderer>().color = new Color(0f / 255f, 255f / 255f, 255f / 255f);
-        }
-        else
-        {
-            //피격 시
-            gameObject.GetComponent<SpriteRenderer>().color = new Color(0f / 255f, 142f / 255f, 142f / 255f);
-        }
-    }
+    
 
     new public void Move()
     {
@@ -110,7 +96,7 @@ public class Enemy_Ranged : Enemy
         }
         else
         {
-            dist = "idle";
+            dist = "Idle";
         }
 
         
