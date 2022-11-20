@@ -62,8 +62,5 @@ public class PlayerInfo : MonoBehaviour
         maxHPText.text = "/ " + Mathf.Round(maxHP).ToString();
     }
 
-    void attacked()
-    {
-
-    }
+ 
 }

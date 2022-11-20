@@ -10,8 +10,10 @@ public class PlayerCon : MonoBehaviour
     SpriteRenderer attackSprite;
     SpriteRenderer playerSprite;
     public bool check;
+    public float defense;
     public float cooltime;
     public float invincibleTime = 1.5f; // 피격 시 무적시간
+    public float itemInvincibleTime = 2.5f;
     bool attackedCheck = false;
     public bool aimChoice = false;
     Vector2 _mousePos, _playerPos;
@@ -95,8 +97,7 @@ public class PlayerCon : MonoBehaviour
         swordRad.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, rotateDegree);
     }
         
-
-    
+   
     
     public void Attack()
     {
@@ -136,7 +137,7 @@ public class PlayerCon : MonoBehaviour
         //Debug.Log(collision.gameObject.name);
         if(collision.gameObject.tag == "Enemy" && !attackedCheck)
         {
-            playerManager.GetComponent<PlayerInfo>().curHP -= 1000;
+            playerManager.GetComponent<PlayerInfo>().curHP -= 1000-(1000*(defense/100)); //방어도에 따른 HP감소 계산 및 적용 
             attackedCheck = true;
             StartCoroutine(attacked());
         }
@@ -163,6 +164,18 @@ public class PlayerCon : MonoBehaviour
         playerSprite.color = new Color32(255, 255, 255, 255);
 
         yield return null;
+    }
+
+    //60초간 방어력 30% 증가
+    public void IcreaseDefensive()
+    {
+        defense += 30;
+        Invoke("DecreaseDefensive", 30);
+    }
+
+    public void DecreaseDefensive()
+    {
+        defense -= 30;
     }
 
 }
