@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 3599744556423759458}
   m_Layer: 0
   m_Name: Mob_Berserker
-  m_TagString: Enemy
+  m_TagString: Enemy_Berserker
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -172,6 +172,7 @@ MonoBehaviour:
   attackCheck: 0
   hp: 3
   invincibleTime: 1
+  isInvincible: 0
   tracingDistance: 6
   player: {fileID: 0}
   distance: 0

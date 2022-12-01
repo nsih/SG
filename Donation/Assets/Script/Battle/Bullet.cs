@@ -9,8 +9,10 @@ public class Bullet : MonoBehaviour
     public float rotateSpeed = 10;
     Vector3 dist;
     Vector3 dir;
+    PlayerCon playerCon;
+
     // Start is called before the first frame update
-    void Start()
+    void OnEnable()
     {
         player = GameObject.Find("Player");
         dist = player.transform.position - gameObject.transform.position;
@@ -40,9 +42,27 @@ public class Bullet : MonoBehaviour
             transform.rotation = Quaternion.AngleAxis(angle - 180f, Vector3.forward);
         }
     }
+    
+    
+    private void OnTriggerEnter2D(Collider2D collider)
+    {
+        Debug.Log(collider.gameObject.tag);
+        if(collider.gameObject.tag == "Player")
+        {
+            playerCon = collider.GetComponent<PlayerCon>();
+            if(playerCon.attackedCheck == false)
+            {
+                DestroyBullet();
+                playerCon.minusHP(500);
+                playerCon.attackedCheck = true;
+                playerCon.StartCoroutine(playerCon.attacked());
+            }
+        }
+    }
+    
 
     void DestroyBullet()
     {
-        Destroy(gameObject);
+        this.gameObject.SetActive(false);
     }
 }

@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class Enemy_Ranged : Enemy
 {
+    List<GameObject> bullets = new List<GameObject>();
+
     public float attackDistance = 5;
     bool isAttacking = false;
     public float attackCooltime = 4;
@@ -21,6 +23,7 @@ public class Enemy_Ranged : Enemy
         animSpeed = 0.4f;
         tracingDistance = 100f;
         GameObject bullet = Resources.Load<GameObject>("Prefabs/Bullet");
+        initBulletPoll();
     }
 
     // Update is called once per frame
@@ -65,12 +68,42 @@ public class Enemy_Ranged : Enemy
     {
         if (isAttacking == true && attackCurtime <= 0)
         {
-            GameObject instance = Instantiate(bullet as GameObject, transform.position, transform.rotation);
-            instance.transform.SetParent(gameObject.transform);
-            attackCurtime = attackCooltime;
+            for (int i = 0; i <= bullets.Count; i++)
+            {
+                int act = 0;
+                foreach (var bullet in bullets)
+                {
+                    if (bullet.activeSelf == true)
+                        act++;
+                }
+
+                if (act == bullets.Count)  //풀 부족
+                {
+                    Debug.Log("Pool error");
+                    break;
+                }
+                else if (bullets[i].activeSelf == false)   //비활성화 풀 탐색후 활성화
+                {
+                    bullets[i].transform.position = transform.position;
+                    bullets[i].SetActive(true);
+                    attackCurtime = attackCooltime;
+                    break;
+                }
+            }
         }
     }
 
+    void initBulletPoll()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            GameObject temp = Instantiate(bullet as GameObject);
+
+            bullets.Add(temp);
+            bullets[i].transform.SetParent(gameObject.transform);
+            temp.gameObject.SetActive(false);
+        }
+    }
     
 
     new public void Move()

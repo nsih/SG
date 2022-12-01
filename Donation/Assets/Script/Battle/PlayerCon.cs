@@ -10,11 +10,14 @@ public class PlayerCon : MonoBehaviour
     SpriteRenderer attackSprite;
     SpriteRenderer playerSprite;
     public bool check;
+    public float defense;
     public float cooltime;
     public float invincibleTime = 1.5f; // 피격 시 무적시간
-    bool attackedCheck = false;
+    public float itemInvincibleTime = 2.5f;
+    public bool attackedCheck = false;
     public bool aimChoice = false;
     Vector2 _mousePos, _playerPos;
+    private float enemyPower = 0;
 
 
     void Awake()
@@ -95,8 +98,7 @@ public class PlayerCon : MonoBehaviour
         swordRad.gameObject.transform.rotation = Quaternion.Euler(0f, 0f, rotateDegree);
     }
         
-
-    
+   
     
     public void Attack()
     {
@@ -124,7 +126,7 @@ public class PlayerCon : MonoBehaviour
         check = true;
     }
 
-    IEnumerator attacked()
+    public IEnumerator attacked()
     {
         StartCoroutine(Blinking());
         yield return new WaitForSeconds(invincibleTime);
@@ -133,13 +135,29 @@ public class PlayerCon : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D collision)
     {
-        //Debug.Log(collision.gameObject.name);
-        if(collision.gameObject.tag == "Enemy" && !attackedCheck)
+        if(collision.gameObject.tag == "Enemy")
         {
-            playerManager.GetComponent<PlayerInfo>().curHP -= 1000;
+            enemyPower = 1000;
+        }
+        else if(collision.gameObject.tag == "Enemy_Ranger")
+        {
+            enemyPower = 200;
+        }
+        else if(collision.gameObject.tag == "Enemy_Berserker")
+        {
+            enemyPower = 2500;
+        }
+        if (enemyPower!=0 && !attackedCheck)
+        {
+            minusHP(enemyPower);
             attackedCheck = true;
+            enemyPower = 0;
             StartCoroutine(attacked());
         }
+    }
+    public void minusHP(float power)
+    {
+        playerManager.GetComponent<PlayerInfo>().curHP -= power - (power * (defense / 100)); //방어도에 따른 HP감소 계산 및 적용
     }
     protected IEnumerator Blinking()
     {
@@ -163,6 +181,18 @@ public class PlayerCon : MonoBehaviour
         playerSprite.color = new Color32(255, 255, 255, 255);
 
         yield return null;
+    }
+
+    //60초간 방어력 30% 증가
+    public void IcreaseDefensive()
+    {
+        defense += 30;
+        Invoke("DecreaseDefensive", 30);
+    }
+
+    public void DecreaseDefensive()
+    {
+        defense -= 30;
     }
 
 }
