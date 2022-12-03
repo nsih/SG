@@ -10,6 +10,7 @@ public class PlayerCon : MonoBehaviour
     SpriteRenderer attackSprite;
     SpriteRenderer playerSprite;
     public bool check;
+    public float attackDamage;
     public float defense;
     public float cooltime;
     public float invincibleTime = 1.5f; // 피격 시 무적시간
@@ -26,6 +27,7 @@ public class PlayerCon : MonoBehaviour
         attack = swordRad.gameObject.transform.GetChild(0).gameObject;
         attackSprite = attack.GetComponent<SpriteRenderer>();
         playerSprite = this.gameObject.GetComponent<SpriteRenderer>();
+        attackDamage = 1;
         check = true;
     }
 
@@ -135,19 +137,19 @@ public class PlayerCon : MonoBehaviour
 
     void OnCollisionStay2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy")
         {
             enemyPower = 1000;
         }
-        else if(collision.gameObject.tag == "Enemy_Ranger")
+        else if (collision.gameObject.tag == "Enemy_Ranger")
         {
             enemyPower = 200;
         }
-        else if(collision.gameObject.tag == "Enemy_Berserker")
+        else if (collision.gameObject.tag == "Enemy_Berserker")
         {
             enemyPower = 2500;
         }
-        if (enemyPower!=0 && !attackedCheck)
+        if (enemyPower != 0 && !attackedCheck)
         {
             minusHP(enemyPower);
             attackedCheck = true;
@@ -159,13 +161,14 @@ public class PlayerCon : MonoBehaviour
     {
         playerManager.GetComponent<PlayerInfo>().curHP -= power - (power * (defense / 100)); //방어도에 따른 HP감소 계산 및 적용
     }
-    protected IEnumerator Blinking()
+
+    IEnumerator Blinking()
     {
         float countTime = 0;
         float blinkTic = 0.5f;
         if (invincibleTime < blinkTic) blinkTic = invincibleTime / 2.0f;
 
-        while (countTime < invincibleTime)
+        while (countTime < itemInvincibleTime)
         {
             if ((countTime / blinkTic) % 2 == 0) 
                 playerSprite.color = new Color(1, 1, 1, 0.4f);
@@ -183,6 +186,36 @@ public class PlayerCon : MonoBehaviour
         yield return null;
     }
 
+    //무적 아이템 사용
+    public void InItemUsed()
+    {
+        attackedCheck = true;
+        StartCoroutine(InvincivleUsed());
+    }
+
+    //무적 시간 2.5초 동안 스프라이트 알파값 0.4 유지
+    protected IEnumerator InvincivleUsed()
+    {
+        float countTime = 0;
+        float blinkTic = 0.5f;
+        if (invincibleTime < blinkTic) blinkTic = invincibleTime / 2.0f;
+
+        while (countTime < itemInvincibleTime)
+        {
+            if ((countTime / blinkTic) % 2 == 0)
+                playerSprite.color = new Color(1, 1, 1, 0.4f);
+
+            yield return new WaitForSeconds(blinkTic);
+
+            countTime += blinkTic;
+            //Debug.Log(countTime);
+        }
+        attackedCheck = false;
+        playerSprite.color = new Color32(255, 255, 255, 255);
+
+        yield return null;
+    }
+
     //60초간 방어력 30% 증가
     public void IcreaseDefensive()
     {
@@ -190,9 +223,40 @@ public class PlayerCon : MonoBehaviour
         Invoke("DecreaseDefensive", 30);
     }
 
+    //방어력 증가 해제
     public void DecreaseDefensive()
     {
         defense -= 30;
+    }
+
+    public void HealthUsed()
+    {
+        StartCoroutine(HealthRegen());
+    }
+
+    IEnumerator HealthRegen()
+    {
+       
+        float countTime = 0;
+        float regenTic = 1f;
+
+        while (countTime < 12)
+        {
+            if ((countTime / regenTic) % 2 == 0)
+            {
+                if (playerManager.GetComponent<PlayerInfo>().curHP != playerManager.GetComponent<PlayerInfo>().maxHP)
+                {
+                    playerManager.GetComponent<PlayerInfo>().curHP += playerManager.GetComponent<PlayerInfo>().maxHP * 0.05f;
+                }
+
+                else if(playerManager.GetComponent<PlayerInfo>().curHP == playerManager.GetComponent<PlayerInfo>().maxHP)
+                    yield return 0;
+            }
+
+            yield return new WaitForSeconds(regenTic);
+
+            countTime += regenTic;
+        }
     }
 
 }

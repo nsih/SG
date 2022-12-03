@@ -169,6 +169,7 @@ MonoBehaviour:
   isTracing: 0
   movementFlag: 0
   moveSpeed: 4
+  damaged: 0
   attackCheck: 0
   hp: 3
   invincibleTime: 1
