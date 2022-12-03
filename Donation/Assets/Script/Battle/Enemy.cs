@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     public bool isTracing = false;
     public float movementFlag = 0;
     public float moveSpeed = 2.0f;
+    public float damaged;
     public bool attackCheck = true; //몹이 플레이어에게 공격받았는지 확인하는 변수
     public float hp = 3;
     public float invincibleTime;
@@ -19,6 +20,10 @@ public class Enemy : MonoBehaviour
     public float distance;
     SpriteRenderer spriteRenderer;
 
+    void Start()
+    {
+       damaged = GameObject.Find("Player").GetComponent<PlayerCon>().attackDamage;
+    }
 
     protected virtual void OnEnable()
     {
@@ -140,13 +145,17 @@ public class Enemy : MonoBehaviour
         }
         transform.position += moveVelocity * moveSpeed * Time.deltaTime;
     }
+
+    //공격받았을 때 사망 처리/또는 hp감소
     protected virtual void AttackedCheck()
     {
         if (hp <= 0 && attackCheck)
         {
             attackCheck = false;
             this.GetComponent<EnemyOBJ>().Dead();
-        }else if (attackCheck)   //몬스터가 플레이어의 공격에 피격 시 무적시간 동안 스프라이트 색 변경
+        }
+        
+        else if (attackCheck)   //몬스터가 플레이어의 공격에 피격 시 무적시간 동안 스프라이트 색 변경
         {
             StartCoroutine("Blinking");
         }
@@ -177,10 +186,13 @@ public class Enemy : MonoBehaviour
         if (!isInvincible)
         {
             attackCheck = true;
-            hp--;
+            hp = hp - damaged;
         }
+
         if(hp>0)    StartCoroutine(enemyAttack());
     }
+
+    //플레이어에게 공격받을 때 실행될 코루틴
     protected IEnumerator enemyAttack()
     {
         isInvincible = true;
@@ -189,6 +201,7 @@ public class Enemy : MonoBehaviour
         attackCheck = false;
     }
 
+    //설정된 시간 동안 무적을 적용하는 코루틴
     protected IEnumerator Blinking()
     {
         float countTime = 0;
