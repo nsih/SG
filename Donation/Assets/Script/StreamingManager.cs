@@ -41,16 +41,6 @@ public class StreamingManager : MonoBehaviour
                 superChatBar.SetActive(isSuperChat);
             }
         }
-
-                
-    }
-
-    public void FixedUpdate() 
-    {
-        if(superChatBar.activeSelf == true)
-        {
-            SuperChatEffect();
-        }
     }
 
 
@@ -130,51 +120,5 @@ public class StreamingManager : MonoBehaviour
     {
         eventNum = start;
         eventEndNum = end;
-    }
-
-
-    //
-    byte r = 51;
-    byte g = 51;
-    byte b = 166;
-     int flag;
-
-    public void SuperChatEffect()
-    {
-        if(flag == 0)
-        {
-            r++;
-            g++;
-            b--;
-
-            if(r >= 164) flag = 1;
-        }
-
-        if(flag ==1)
-        {
-            r--; 
-            //g
-            b++;
-
-            if(r <= 51) flag = 2;
-        }
-        if(flag ==2)
-        {
-            r++;
-            g--;
-            //b
-
-            if(r >= 164) flag = 3;
-        }
-        if(flag == 3)
-        {
-            r--;
-            //g
-            b++;
-
-            if(r <= 51) flag = 0;
-        }
-
-        superChatBar.GetComponent<Image>().color = new Color32(r,g,b,200);
     }
 }
